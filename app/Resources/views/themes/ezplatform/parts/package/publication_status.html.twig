@@ -1,0 +1,22 @@
+{% if step is defined %}
+    <ul class="package-add__publication text-md-right">
+        <li class="publication__step {% if step == 'submission' %}publication__step--active{% endif %}">
+            <p>
+                <span class="publication__step--number">1</span>
+                Submission
+            </p>
+        </li>
+        <li class="publication__step {% if step == 'moderation' %}publication__step--active{% endif %}">
+            <p>
+                <span class="publication__step--number">2</span>
+                Moderation
+            </p>
+        </li>
+        <li class="publication__step">
+            <p>
+                <span class="publication__step--number">3</span>
+                Published
+            </p>
+        </li>
+    </ul>
+{% endif %}
