@@ -11,7 +11,7 @@ ezpublish:
                         draft:
                             label: 'In Review'
                             color: '#4a69bd'
-                        done:
+                        approved:
                             label: 'Approved'
                             color: '#0f0'
                             last_stage: true
