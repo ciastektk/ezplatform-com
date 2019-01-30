@@ -17,7 +17,7 @@ ezpublish:
                             last_stage: true
                     initial_stage: draft
                     transitions:
-                        approved:
+                        to_approved:
                             from: draft
                             to: done
                             label: 'Approve'
