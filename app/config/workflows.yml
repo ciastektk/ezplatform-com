@@ -19,6 +19,6 @@ ezpublish:
                     transitions:
                         to_approved:
                             from: draft
-                            to: done
+                            to: approved
                             label: 'Approve'
                             icon: '/bundles/ezplatformadminui/img/ez-icons.svg#approved'

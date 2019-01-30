@@ -16,7 +16,7 @@ use AppBundle\Service\Package\PackageServiceInterface;
 use eZ\Bundle\EzPublishCoreBundle\Routing\DefaultRouter;
 use eZ\Bundle\EzPublishCoreBundle\Routing\UrlAliasRouter;
 use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
 use Netgen\TagsBundle\API\Repository\TagsService;
@@ -98,7 +98,7 @@ class PackageController
     /**
      * PackageController constructor.
      * @param EngineInterface $templating
-     * @param SearchService $searchService
+     * @param SearchServiceInterface $searchService
      * @param UrlAliasRouter $aliasRouter
      * @param PackagesQueryType $packagesQueryType
      * @param PackageServiceInterface $packageService
@@ -112,7 +112,7 @@ class PackageController
      */
     public function __construct(
         EngineInterface $templating,
-        SearchService $searchService,
+        SearchServiceInterface $searchService,
         UrlAliasRouter $aliasRouter,
         PackagesQueryType $packagesQueryType,
         PackageServiceInterface $packageService,

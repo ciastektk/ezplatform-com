@@ -11,6 +11,11 @@ namespace AppBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
 
+/**
+ * Class PackageDbNotExistsConstraint
+ *
+ * @package AppBundle\Validator\Constraints
+ */
 class PackageDbNotExistsConstraint extends Constraint
 {
     public $message = 'This {{ name }} is already in the package catalog.';

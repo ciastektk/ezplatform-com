@@ -11,7 +11,7 @@ namespace AppBundle\Validator\Constraints;
 use AppBundle\Service\Packagist\PackagistServiceProviderInterface;
 use AppBundle\Url\UrlBuilder;
 use AppBundle\ValueObject\RepositoryMetadata;
-use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -39,7 +39,7 @@ class PackagistUrlConstraintValidator extends ConstraintValidator
     private $urlBuilder;
 
     public function __construct(
-        SearchService $searchService,
+        SearchServiceInterface $searchService,
         PackagistServiceProviderInterface $packagistServiceProvider,
         UrlBuilder $urlBuilder
     ) {

@@ -10,7 +10,7 @@ namespace AppBundle\Validator\Constraints;
 
 use AppBundle\Url\UrlBuilder;
 use AppBundle\ValueObject\RepositoryMetadata;
-use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Field;
@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
- * Class PackageDbExistsConstraintValidator
+ * Class PackageDbNotExistsConstraintValidator
  *
  * @package AppBundle\Validator\Constraints
  */
@@ -50,7 +50,7 @@ class PackageDbNotExistsConstraintValidator extends ConstraintValidator
     private $urlBuilder;
 
     public function __construct(
-        SearchService $searchService,
+        SearchServiceInterface $searchService,
         ContentDraftsDataset $contentDraftsDataset,
         UrlBuilder $urlBuilder
     ) {
