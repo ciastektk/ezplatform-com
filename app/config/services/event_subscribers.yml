@@ -11,3 +11,8 @@ services:
     AppBundle\Event\Subscriber\NotificationSenderSubscriber:
         arguments:
             $recipients: '%packages.submission_mail_notification_recipients%'
+
+    AppBundle\Event\Subscriber\ReleaseSubscriber:
+        arguments:
+            $releaseContentTypeId: '%app.release_content_type_id%'
+            $downloadSectionLocationId: '%app.download_section_location_id%'
