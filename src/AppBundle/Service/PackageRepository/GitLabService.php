@@ -10,12 +10,15 @@ declare(strict_types=1);
 
 namespace AppBundle\Service\PackageRepository;
 
+use AppBundle\Helper\LoggerTrait;
 use AppBundle\ValueObject\RepositoryMetadata;
 use Gitlab\Client;
 use Gitlab\HttpClient\Message\ResponseMediator;
 
 class GitLabService implements PackageRepositoryServiceInterface
 {
+    use LoggerTrait;
+
     private const REPOSITORY_PLATFORM_NAME = 'gitlab';
     private const README_FILE_PATH = 'README.md';
     private const README_REF = 'master';
@@ -62,6 +65,12 @@ class GitLabService implements PackageRepositoryServiceInterface
 
             return $this->getReadmeAsHtml($headers, $body);
         } catch (\Exception $exception) {
+            $this->logError(
+                sprintf(
+                    'GitLab API Exception: %s | RepositoryId: %s',
+                    $exception->getMessage(), $repositoryMetadata->getRepositoryId()
+                )
+            );
             return null;
         }
     }

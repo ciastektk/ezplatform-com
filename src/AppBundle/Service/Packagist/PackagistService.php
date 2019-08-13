@@ -10,12 +10,15 @@ declare(strict_types=1);
 
 namespace AppBundle\Service\Packagist;
 
+use AppBundle\Helper\LoggerTrait;
 use AppBundle\Mapper\PackageMapper;
 use AppBundle\ValueObject\Package;
 use Packagist\Api\Client;
 
 class PackagistService implements PackagistServiceInterface
 {
+    use LoggerTrait;
+
     /** @var \Packagist\Api\Client */
     private $packagistClient;
 
@@ -42,6 +45,9 @@ class PackagistService implements PackagistServiceInterface
         try {
             return $this->mapper->createPackageFromPackagistApiResult($this->packagistClient->get($packageName));
         } catch (\Exception $exception) {
+            $this->logError(
+                sprintf('Packagist API Exception: %s | PackageName: %s', $exception->getMessage(), $packageName)
+            );
             return null;
         }
     }

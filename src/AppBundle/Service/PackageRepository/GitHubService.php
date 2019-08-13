@@ -10,13 +10,15 @@ declare(strict_types=1);
 
 namespace AppBundle\Service\PackageRepository;
 
-use AppBundle\Service\PackageRepository\PackageRepositoryServiceInterface;
+use AppBundle\Helper\LoggerTrait;
 use AppBundle\ValueObject\RepositoryMetadata;
 use Github\Api\Repo;
 use Github\Client;
 
 class GitHubService implements PackageRepositoryServiceInterface
 {
+    use LoggerTrait;
+
     const REPOSITORY_PLATFORM_NAME = 'github';
     const GITHUB_DEFAULT_BRANCH = 'HEAD';
     const GITHUB_HREF_PART = 'blob';
@@ -51,6 +53,13 @@ class GitHubService implements PackageRepositoryServiceInterface
         try {
             return $this->getPackageRepository()->readme($repositoryMetadata->getUsername(), $repositoryMetadata->getRepositoryName(), $format);
         } catch (\Exception $exception) {
+            $this->logError(
+                sprintf(
+                    'GitHub API Exception: %s | RepositoryId: %s',
+                    $exception->getMessage(),
+                    $repositoryMetadata->getRepositoryId()
+                )
+            );
             return null;
         }
     }
