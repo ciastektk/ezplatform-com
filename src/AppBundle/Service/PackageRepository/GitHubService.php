@@ -1,8 +1,6 @@
 <?php
 
 /**
- * GitHubServiceProvider.
- *
  * Provides method to call GitHub.com API.
  *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
@@ -10,17 +8,14 @@
  */
 declare(strict_types=1);
 
-namespace AppBundle\Service\GitHub;
+namespace AppBundle\Service\PackageRepository;
 
-use AppBundle\Service\PackageRepository\PackageRepositoryServiceProviderInterface;
+use AppBundle\Service\PackageRepository\PackageRepositoryServiceInterface;
 use AppBundle\ValueObject\RepositoryMetadata;
 use Github\Api\Repo;
 use Github\Client;
 
-/**
- * Class GitHubServiceProvider.
- */
-class GitHubServiceProvider implements PackageRepositoryServiceProviderInterface
+class GitHubService implements PackageRepositoryServiceInterface
 {
     const REPOSITORY_PLATFORM_NAME = 'github';
     const GITHUB_DEFAULT_BRANCH = 'HEAD';
@@ -38,6 +33,10 @@ class GitHubServiceProvider implements PackageRepositoryServiceProviderInterface
     /** @var string */
     private $authenticationToken;
 
+    /**
+     * @param \Github\Client $gitHubClient
+     * @param string $authenticationToken
+     */
     public function __construct(Client $gitHubClient, string $authenticationToken)
     {
         $this->gitHubClient = $gitHubClient;
@@ -45,10 +44,7 @@ class GitHubServiceProvider implements PackageRepositoryServiceProviderInterface
     }
 
     /**
-     * @param \AppBundle\ValueObject\RepositoryMetadata $repositoryMetadata
-     * @param string $format
-     *
-     * @return null|string
+     * {@inheritdoc}
      */
     public function getReadme(RepositoryMetadata $repositoryMetadata, string $format = 'html'): ?string
     {
@@ -60,16 +56,16 @@ class GitHubServiceProvider implements PackageRepositoryServiceProviderInterface
     }
 
     /**
-     * @param \AppBundle\ValueObject\RepositoryMetadata $repositoryMetadata
-     *
-     * @return bool
+     * {@inheritdoc}
      */
-    public function canGetClientProvider(RepositoryMetadata $repositoryMetadata): bool
+    public function canGetClientService(RepositoryMetadata $repositoryMetadata): bool
     {
         return $repositoryMetadata->getRepositoryPlatform() === self::REPOSITORY_PLATFORM_NAME;
     }
 
-    /** @return \Github\Api\Repo */
+    /**
+     * @return \Github\Api\Repo
+     */
     private function getPackageRepository(): Repo
     {
         $this->gitHubClient->authenticate($this->authenticationToken, null, Client::AUTH_URL_TOKEN);
